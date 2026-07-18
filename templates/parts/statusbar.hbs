@@ -1,0 +1,16 @@
+<footer class="fm-statusbar">
+  <span>{{statusCount}}</span>
+  <span class="fm-spacer"></span>
+  {{#if phrase}}
+    <span class="fm-phrase" data-action="phraseClick">{{phrase}}</span>
+  {{/if}}
+  <span class="fm-spacer"></span>
+  <span>{{statusSelected}}</span>
+  {{#if showSelect}}
+    <button type="button" class="fm-btn accent fm-select-btn" data-action="confirmSelect"
+            {{#if selectDisabled}}disabled{{/if}}>
+      <i class="fa-solid fa-check"></i>
+      <span>{{selectLabel}}</span>
+    </button>
+  {{/if}}
+</footer>

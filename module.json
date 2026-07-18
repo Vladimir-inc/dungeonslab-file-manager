@@ -1,0 +1,27 @@
+{
+  "id": "file-manager-dungeons-lab",
+  "title": "File Manager",
+  "description": "Replaces the core File Picker with a tag, color-label, and preview-driven file browser (GM-only).",
+  "version": "0.4.3",
+  "compatibility": { "minimum": "13", "verified": "14" },
+  "socket": true,
+  "authors": [
+    {
+      "name": "Dungeons Lab",
+      "url": "https://github.com/Vladimir-inc/dungeonslab-file-manager",
+      "discord": "https://discord.gg/MUxsQCf587"
+    }
+  ],
+  "url": "https://github.com/Vladimir-inc/dungeonslab-file-manager",
+  "license": "LICENSE",
+  "readme": "README.md",
+  "bugs": "https://github.com/Vladimir-inc/dungeonslab-file-manager/issues",
+  "manifest": "https://github.com/Vladimir-inc/dungeonslab-file-manager/releases/latest/download/module.json",
+  "download": "https://github.com/Vladimir-inc/dungeonslab-file-manager/releases/download/v0.4.3/module.zip",
+  "esmodules": ["dist/module.mjs"],
+  "styles": ["dist/styles/module.css"],
+  "languages": [
+    { "lang": "en", "name": "English", "path": "lang/en.json" },
+    { "lang": "ru", "name": "Русский", "path": "lang/ru.json" }
+  ]
+}

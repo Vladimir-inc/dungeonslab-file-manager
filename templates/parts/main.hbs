@@ -1,0 +1,100 @@
+<section class="fm-main">
+  {{#if filtering}}
+    <div class="fm-filter-chips">
+      <span class="fm-filter-label">{{localize "FILE_MANAGER_DUNGEONS_LAB.Main.Filters"}}</span>
+      {{#each colorFilters}}
+        {{#if this.active}}
+          <span class="fm-chip is-removable" data-action="toggleColorFilter" data-color-id="{{this.id}}">
+            <span class="fm-swatch" style="background: {{this.hex}}"></span>
+            {{this.label}} <i class="fa-solid fa-xmark"></i>
+          </span>
+        {{/if}}
+      {{/each}}
+      {{#each tags}}
+        {{#if this.active}}
+          <span class="fm-chip is-removable" data-action="toggleTagFilter" data-tag-id="{{this.id}}">
+            <i class="fa-solid fa-tag fm-tag-icon"></i>
+            {{this.name}} <i class="fa-solid fa-xmark"></i>
+          </span>
+        {{/if}}
+      {{/each}}
+      <span class="fm-link" data-action="clearFilters">
+        {{localize "FILE_MANAGER_DUNGEONS_LAB.Main.ClearFilters"}}
+      </span>
+    </div>
+  {{/if}}
+
+  {{#if emptyFolder}}
+    <div class="fm-empty">
+      <i class="fa-solid fa-folder-open"></i>
+      <p>{{localize "FILE_MANAGER_DUNGEONS_LAB.Main.EmptyFolder"}}</p>
+    </div>
+  {{/if}}
+  {{#if noResults}}
+    <div class="fm-empty">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <p>{{localize "FILE_MANAGER_DUNGEONS_LAB.Main.NoResults"}}</p>
+      <button type="button" class="fm-btn accent" data-action="clearFilters">
+        {{localize "FILE_MANAGER_DUNGEONS_LAB.Main.ClearFilters"}}
+      </button>
+    </div>
+  {{/if}}
+
+  {{#if items.length}}
+    <div class="fm-items view-{{view}}">
+      {{#each items}}
+        <div class="fm-item {{#if this.selected}}selected{{/if}} type-{{this.type}}" draggable="true"
+             data-action="selectItem" data-item-id="{{this.id}}">
+          <span class="fm-type-icon">{{{this.typeIcon}}}</span>
+          <div class="fm-thumb">
+            {{#if this.isFolder}}
+              <i class="fa-solid fa-folder fm-folder-icon"
+                 {{#if this.colorHex}}style="color: {{this.colorHex}}"{{/if}}></i>
+            {{else if this.needsActivation}}
+              {{#if this.mediaActive}}
+                {{#if this.isVideo}}
+                  <video autoplay muted loop playsinline src="{{this.path}}"></video>
+                {{else}}
+                  <img src="{{this.path}}" decoding="async" alt="{{this.name}}">
+                {{/if}}
+                <span class="fm-media-badge is-stop" data-action="toggleMedia"
+                      data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Media.Stop"}}">
+                  <i class="fa-solid fa-stop"></i>
+                </span>
+              {{else}}
+                <i class="fa-solid {{#if this.isVideo}}fa-film{{else}}fa-image{{/if}}"></i>
+                <span class="fm-media-type">{{#if this.isVideo}}VIDEO{{else}}GIF{{/if}}</span>
+                <span class="fm-media-badge" data-action="toggleMedia"
+                      data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Media.Play"}}">
+                  <i class="fa-solid fa-play"></i>
+                </span>
+              {{/if}}
+            {{else if this.isImage}}
+              <img src="{{this.path}}" loading="lazy" decoding="async" alt="{{this.name}}">
+            {{else if this.isAudio}}
+              <i class="fa-solid fa-music"></i>
+            {{else}}
+              <i class="fa-solid fa-file"></i>
+            {{/if}}
+            {{#if this.colorHex}}{{#unless this.isFolder}}
+              <span class="fm-dot" style="background: {{this.colorHex}}"></span>
+            {{/unless}}{{/if}}
+          </div>
+          <div class="fm-item-info">
+            <span class="fm-item-name">{{this.name}}</span>
+            {{#if this.tagChips.length}}
+              <span class="fm-item-chips">
+                {{#each this.tagChips}}
+                  <span class="fm-chip">{{this.name}}</span>
+                {{/each}}
+              </span>
+            {{/if}}
+          </div>
+          {{#if this.colorHex}}
+            <span class="fm-dot-end" style="background: {{this.colorHex}}"></span>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+</section>

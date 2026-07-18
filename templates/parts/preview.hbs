@@ -1,0 +1,101 @@
+<aside class="fm-preview {{#unless previewOpen}}is-empty{{/unless}}">
+  <header class="fm-preview-head">
+    <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Preview.PanelTitle"}}</span>
+    <span class="fm-spacer"></span>
+    <span class="fm-icon-btn" data-action="togglePreview"><i class="fa-solid fa-xmark"></i></span>
+  </header>
+  {{#if previewItem}}
+    <div class="fm-preview-thumb">
+      {{#if previewItem.isFolder}}
+        <i class="fa-solid fa-folder fm-folder-icon"
+           {{#if previewItem.colorHex}}style="color: {{previewItem.colorHex}}"{{/if}}></i>
+      {{else if previewItem.isVideo}}
+        <video controls preload="metadata" src="{{previewItem.path}}"></video>
+      {{else if previewItem.isAudio}}
+        <i class="fa-solid fa-music"></i>
+      {{else if previewItem.isImage}}
+        <img src="{{previewItem.path}}" decoding="async" alt="{{previewItem.name}}">
+      {{else if previewItem.isGif}}
+        <img src="{{previewItem.path}}" decoding="async" alt="{{previewItem.name}}">
+      {{else}}
+        <i class="fa-solid fa-file"></i>
+      {{/if}}
+    </div>
+
+    {{#if previewItem.isAudio}}
+      <div class="fm-audio-player">
+        <button type="button" class="fm-audio-toggle" data-action="toggleAudio">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        <div class="fm-audio-body">
+          <input type="range" class="fm-audio-seek" min="0" max="1000" step="1" value="0">
+          <div class="fm-audio-time">
+            <span class="fm-audio-cur">0:00</span>
+            <span class="fm-audio-dur">--:--</span>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+
+    <div class="fm-preview-name">{{previewItem.name}}</div>
+
+    {{#if pvActions.length}}
+      <section class="fm-preview-section">
+        <h4>{{localize "FILE_MANAGER_DUNGEONS_LAB.Preview.Actions"}}</h4>
+        <div class="fm-preview-actions">
+          {{#each pvActions}}
+            <button type="button" data-action="previewAction" data-action-key="{{this.key}}">
+              <i class="fa-solid {{this.icon}}"></i>
+              <span>{{this.label}}</span>
+            </button>
+          {{/each}}
+        </div>
+      </section>
+    {{/if}}
+
+    <section class="fm-preview-section">
+      <h4>{{localize "FILE_MANAGER_DUNGEONS_LAB.Preview.ColorLabel"}}</h4>
+      <div class="fm-color-row">
+        <span class="fm-swatch is-none" data-action="setColor" data-color=""
+              data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Colors.None"}}">&empty;</span>
+        {{#each previewColors}}
+          <span class="fm-swatch {{#if this.active}}ring{{/if}}" data-action="setColor"
+                data-color="{{this.id}}" style="background: {{this.hex}}"
+                data-tooltip="{{localize this.labelKey}}"></span>
+        {{/each}}
+      </div>
+    </section>
+
+    <section class="fm-preview-section">
+      <h4>
+        {{localize "FILE_MANAGER_DUNGEONS_LAB.Sidebar.Tags"}}
+        <span class="fm-spacer"></span>
+        <span class="fm-link" data-action="editTags">
+          {{localize "FILE_MANAGER_DUNGEONS_LAB.Preview.EditTags"}}
+        </span>
+      </h4>
+      <div class="fm-preview-tags">
+        {{#each previewItem.tagChips}}
+          <span class="fm-chip">{{this.name}}</span>
+        {{else}}
+          <span class="fm-muted">{{localize "FILE_MANAGER_DUNGEONS_LAB.Preview.NoTags"}}</span>
+        {{/each}}
+      </div>
+    </section>
+
+    <section class="fm-preview-section fm-preview-props">
+      <h4>{{localize "FILE_MANAGER_DUNGEONS_LAB.Properties.Title"}}</h4>
+      {{#each previewProps}}
+        <div class="fm-prop-row">
+          <span class="fm-prop-key">{{this.k}}</span>
+          <span class="fm-prop-val">{{this.v}}</span>
+        </div>
+      {{/each}}
+    </section>
+  {{else}}
+    <div class="fm-preview-hint">
+      <i class="fa-solid fa-arrow-pointer"></i>
+      <p>{{localize "FILE_MANAGER_DUNGEONS_LAB.Preview.Hint"}}</p>
+    </div>
+  {{/if}}
+</aside>
