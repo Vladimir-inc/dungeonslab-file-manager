@@ -1,0 +1,361 @@
+@dl-accent: #9fc1ff;
+
+.dl-intro-window .window-content {
+  padding: 0;
+  background: #04060d;
+  overflow: hidden;
+}
+
+.dl-intro {
+  display: flex;
+  flex-direction: column;
+  background: #04060d;
+  overflow: hidden;
+  font-family: "Cinzel", serif;
+
+  .dl-viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .dl-stage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1280px;
+    height: 720px;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+
+    > * {
+      transform: translate(var(--dl-shake, 0px, 0px));
+    }
+  }
+
+  .dl-backdrop {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, #0b1530 0%, #060b1c 55%, #02030a 100%);
+  }
+
+  .dl-fog {
+    position: absolute;
+    inset: -20%;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    filter: blur(26px);
+    background-image:
+      radial-gradient(ellipse 46% 30% at 22% 64%, rgba(96, 128, 190, 0.5), transparent 70%),
+      radial-gradient(ellipse 52% 26% at 68% 72%, rgba(80, 110, 170, 0.42), transparent 70%),
+      radial-gradient(ellipse 40% 24% at 46% 84%, rgba(120, 150, 210, 0.36), transparent 70%),
+      radial-gradient(ellipse 60% 30% at 84% 58%, rgba(70, 96, 150, 0.32), transparent 72%);
+  }
+
+  .dl-fog-back {
+    animation: dl-fog-drift 46s ease-in-out infinite alternate;
+  }
+
+  .dl-fog-front {
+    animation: dl-fog-drift 28s ease-in-out infinite alternate-reverse;
+  }
+
+  .dl-bloom {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0;
+    background: radial-gradient(
+      ellipse 60% 45% at 50% 62%,
+      rgba(255, 140, 40, 0.75),
+      rgba(200, 60, 10, 0.25) 55%,
+      rgba(0, 0, 0, 0) 80%
+    );
+  }
+
+  .dl-bolts {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .dl-flash,
+  .dl-dim,
+  .dl-black {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .dl-dim,
+  .dl-black {
+    background: #000;
+  }
+
+  .dl-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 45%, rgba(0, 0, 0, 0) 46%, rgba(0, 0, 0, 0.6) 100%);
+  }
+
+  .dl-embers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .dl-ember {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  .dl-logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 380px;
+    height: auto;
+    border: none;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    filter: drop-shadow(0 0 34px rgba(90, 120, 200, 0.45));
+  }
+
+  .dl-scene {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .dl-kicker {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    font-weight: 600;
+    color: #8fa3cc;
+    opacity: 0;
+  }
+
+  .dl-rule {
+    width: 70px;
+    height: 1px;
+    opacity: 0.7;
+  }
+
+  .dl-rule-l {
+    background: linear-gradient(90deg, transparent, @dl-accent);
+  }
+
+  .dl-rule-r {
+    background: linear-gradient(90deg, @dl-accent, transparent);
+  }
+
+  .dl-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: 0.06em;
+    text-indent: 0.06em;
+    background: linear-gradient(
+      105deg,
+      #46608e 0%,
+      @dl-accent 38%,
+      #e2ecff 50%,
+      @dl-accent 62%,
+      #46608e 100%
+    );
+    background-size: 250% 100%;
+    background-position: 50% 0%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.85));
+    opacity: 0;
+  }
+
+  .dl-credit .dl-kicker {
+    top: 272px;
+    font-size: 21px;
+    letter-spacing: 0.5em;
+    text-indent: 0.5em;
+  }
+
+  .dl-title-credit {
+    top: 318px;
+    font-size: 84px;
+  }
+
+  .dl-module .dl-kicker {
+    top: 228px;
+    font-size: 17px;
+    letter-spacing: 0.52em;
+    text-indent: 0.52em;
+  }
+
+  .dl-title-module {
+    top: 268px;
+    font-size: 92px;
+  }
+
+  .dl-divider {
+    position: absolute;
+    left: 50%;
+    top: 420px;
+    width: 460px;
+    margin-left: -230px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+
+    .dl-rule {
+      flex: 1;
+      width: auto;
+      opacity: 1;
+    }
+  }
+
+  .dl-diamond {
+    width: 8px;
+    height: 8px;
+    background: @dl-accent;
+    transform: rotate(45deg);
+    box-shadow: 0 0 10px rgba(159, 193, 255, 0.7);
+  }
+
+  .dl-pitch {
+    position: absolute;
+    left: 50%;
+    top: 448px;
+    width: 800px;
+    margin-left: -400px;
+    text-align: center;
+    font-family: "Alegreya", serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.55;
+    color: #c8d2e8;
+    opacity: 0;
+  }
+
+  .dl-tagline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 618px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.32em;
+    text-indent: 0.32em;
+    color: @dl-accent;
+    opacity: 0;
+  }
+
+  .dl-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    padding: 14px 0 16px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.9s ease;
+  }
+
+  &.is-done .dl-actions {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: #c8d2e8;
+    background: rgba(12, 18, 34, 0.85);
+    border: 1px solid rgba(159, 193, 255, 0.35);
+    border-radius: 6px;
+    cursor: pointer;
+    transition:
+      border-color 0.2s,
+      color 0.2s,
+      box-shadow 0.2s;
+
+    &:hover {
+      color: #eef3ff;
+      border-color: @dl-accent;
+      box-shadow: 0 0 14px rgba(159, 193, 255, 0.35);
+    }
+  }
+
+  .dl-btn-discord {
+    color: #eef3ff;
+    border-color: rgba(88, 101, 242, 0.7);
+    background: rgba(58, 66, 148, 0.55);
+
+    &:hover {
+      border-color: #7984f5;
+      box-shadow: 0 0 16px rgba(88, 101, 242, 0.5);
+    }
+  }
+}
+
+@keyframes dl-fog-drift {
+  from {
+    transform: translate(-3%, 1%) scale(1.08);
+  }
+
+  to {
+    transform: translate(3%, -2%) scale(1.22);
+  }
+}
+
+.dl-chat-greeting {
+  border: 1px solid rgba(159, 193, 255, 0.35);
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: linear-gradient(180deg, rgba(11, 21, 48, 0.55), rgba(4, 6, 13, 0.4));
+
+  h3 {
+    border: none;
+    margin: 0 0 4px;
+    font-size: 1.05em;
+  }
+
+  .dl-chat-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border: 1px solid rgba(88, 101, 242, 0.7);
+    border-radius: 5px;
+    background: rgba(58, 66, 148, 0.45);
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,126 @@
+<div class="fm-overlays">
+  {{#if showBulk}}
+    <div class="fm-bulk-bar">
+      <span class="fm-bulk-count">{{statusSelected}}</span>
+      <span class="fm-divider"></span>
+      <span class="fm-bulk-group">
+        <span class="fm-bulk-label">{{localize "FILE_MANAGER_DUNGEONS_LAB.Preview.ColorLabel"}}</span>
+        <span class="fm-swatch is-none" data-action="bulkSetColor" data-color=""
+              data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Colors.None"}}">&empty;</span>
+        {{#each labelColors}}
+          <span class="fm-swatch" data-action="bulkSetColor" data-color="{{this.id}}"
+                style="background: {{this.hex}}" data-tooltip="{{localize this.labelKey}}"></span>
+        {{/each}}
+      </span>
+      <span class="fm-divider"></span>
+      <span class="fm-link" data-action="bulkOpenTagModal">
+        {{localize "FILE_MANAGER_DUNGEONS_LAB.Main.BulkTags"}}
+      </span>
+      <span class="fm-icon-btn" data-action="clearSelection"><i class="fa-solid fa-xmark"></i></span>
+    </div>
+  {{/if}}
+
+  {{#if contextMenu}}
+    <div class="fm-overlay-backdrop" data-action="closeContextMenu"></div>
+    <div class="fm-context-menu" style="left: {{contextMenu.x}}px; top: {{contextMenu.y}}px">
+      {{#if contextMenu.favoriteId}}
+        <div class="fm-context-item" data-action="ctxUnfavorite">
+          <i class="fa-solid fa-star-half-stroke"></i>
+          <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Context.Unfavorite"}}</span>
+        </div>
+      {{else if contextMenu.background}}
+        {{#if showCreateFolder}}
+          <div class="fm-context-item" data-action="newFolder">
+            <i class="fa-solid fa-folder-plus"></i>
+            <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.NewFolder"}}</span>
+          </div>
+        {{/if}}
+        {{#if showUpload}}
+          <div class="fm-context-item" data-action="upload">
+            <i class="fa-solid fa-upload"></i>
+            <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.Upload"}}</span>
+          </div>
+        {{/if}}
+      {{else}}
+        <div class="fm-context-caption">{{localize "FILE_MANAGER_DUNGEONS_LAB.Preview.ColorLabel"}}</div>
+        <div class="fm-context-colors">
+          <span class="fm-swatch is-none" data-action="ctxSetColor" data-color="">&empty;</span>
+          {{#each labelColors}}
+            <span class="fm-swatch" data-action="ctxSetColor" data-color="{{this.id}}"
+                  style="background: {{this.hex}}" data-tooltip="{{localize this.labelKey}}"></span>
+          {{/each}}
+        </div>
+        {{#each contextMenu.actions}}
+          <div class="fm-context-item" data-action="ctxPreviewAction" data-action-key="{{this.key}}">
+            <i class="fa-solid {{this.icon}}"></i>
+            <span>{{this.label}}</span>
+          </div>
+        {{/each}}
+        {{#if contextMenu.actions.length}}<div class="fm-context-sep"></div>{{/if}}
+        {{#if contextMenu.singleFolder}}
+          <div class="fm-context-item" data-action="ctxOpen">
+            <i class="fa-solid fa-folder-open"></i>
+            <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Context.Open"}}</span>
+          </div>
+          <div class="fm-context-item" data-action="ctxToggleFavorite">
+            <i class="fa-solid fa-star"></i>
+            <span>{{contextMenu.favoriteLabel}}</span>
+          </div>
+        {{/if}}
+        <div class="fm-context-item" data-action="ctxEditTags">
+          <i class="fa-solid fa-tags"></i>
+          <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Context.Tags"}}</span>
+        </div>
+      {{/if}}
+    </div>
+  {{/if}}
+
+  {{#if tagModal}}
+    <div class="fm-overlay-backdrop is-dim" data-action="closeTagModal"></div>
+    <div class="fm-modal">
+      <header class="fm-modal-header">
+        <h3>{{tagModal.title}}</h3>
+        <span class="fm-spacer"></span>
+        <span class="fm-icon-btn" data-action="closeTagModal"><i class="fa-solid fa-xmark"></i></span>
+      </header>
+      <div class="fm-modal-body">
+        {{#each tagModal.rows}}
+          <div class="fm-tag-modal-row">
+            {{#if ../tagModal.assigning}}
+              <span class="fm-checkbox {{#if this.checked}}checked{{/if}}" data-action="tagModalToggle"
+                    data-tag-id="{{this.id}}">
+                {{#if this.checked}}<i class="fa-solid fa-check"></i>{{/if}}
+              </span>
+            {{/if}}
+            <i class="fa-solid fa-tag fm-tag-icon"></i>
+            <span class="fm-tag-modal-name">{{this.name}}</span>
+            <span class="fm-tag-count">{{this.count}}</span>
+            <span class="fm-icon-btn" data-action="tagModalRename" data-tag-id="{{this.id}}"
+                  data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.TagModal.RenameTitle"}}">
+              <i class="fa-solid fa-pen"></i>
+            </span>
+            <span class="fm-icon-btn is-danger" data-action="tagModalDelete" data-tag-id="{{this.id}}"
+                  data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.TagModal.Delete"}}">
+              <i class="fa-solid fa-trash"></i>
+            </span>
+          </div>
+        {{else}}
+          <p class="fm-muted">{{localize "FILE_MANAGER_DUNGEONS_LAB.TagModal.NoTags"}}</p>
+        {{/each}}
+      </div>
+      {{#unless tagModal.assigning}}
+        <footer class="fm-modal-footer">
+          <input type="text" name="newTag" autocomplete="off"
+                 placeholder="{{localize "FILE_MANAGER_DUNGEONS_LAB.TagModal.NewTagPlaceholder"}}">
+          <button type="button" class="fm-btn accent" data-action="tagModalAdd">
+            {{localize "FILE_MANAGER_DUNGEONS_LAB.TagModal.Add"}}
+          </button>
+        </footer>
+      {{/unless}}
+    </div>
+  {{/if}}
+
+  {{#if toastText}}
+    <div class="fm-toast">{{toastText}}</div>
+  {{/if}}
+</div>

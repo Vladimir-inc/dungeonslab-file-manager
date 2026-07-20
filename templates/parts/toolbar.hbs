@@ -1,0 +1,53 @@
+<div class="fm-toolbar">
+  <button type="button" class="fm-icon-btn" data-action="goUp"
+          data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.Up"}}">
+    <i class="fa-solid fa-arrow-left"></i>
+  </button>
+  <nav class="fm-breadcrumbs">
+    {{#each crumbs}}
+      {{#unless @first}}<span class="fm-crumb-sep">›</span>{{/unless}}
+      {{#if this.nav}}
+        <span class="fm-crumb" data-action="navigate" data-path="{{this.path}}">{{this.name}}</span>
+      {{else}}
+        <span class="fm-crumb is-static">{{this.name}}</span>
+      {{/if}}
+    {{/each}}
+  </nav>
+  <span class="fm-spacer"></span>
+  <div class="fm-search">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" name="search" value="{{search}}" autocomplete="off"
+           placeholder="{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.SearchPlaceholder"}}">
+  </div>
+  <div class="fm-segmented fm-view-switch">
+    {{#each views}}
+      <button type="button" class="{{#if this.active}}active{{/if}}" data-action="setView"
+              data-view="{{this.id}}" data-tooltip="{{this.label}}">
+        <i class="fa-solid {{this.icon}}"></i>
+      </button>
+    {{/each}}
+  </div>
+  <div class="fm-segmented fm-source-switch">
+    {{#each sourcesList}}
+      <button type="button" class="{{#if this.active}}active{{/if}}" data-action="switchSource"
+              data-source="{{this.id}}">{{this.label}}</button>
+    {{/each}}
+  </div>
+  {{#if showCreateFolder}}
+    <button type="button" class="fm-btn" data-action="newFolder">
+      <i class="fa-solid fa-folder-plus"></i>
+      <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.NewFolder"}}</span>
+    </button>
+  {{/if}}
+  {{#if showUpload}}
+    <button type="button" class="fm-btn" data-action="upload">
+      <i class="fa-solid fa-upload"></i>
+      <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.Upload"}}</span>
+    </button>
+  {{/if}}
+  <button type="button" class="fm-icon-btn fm-preview-toggle {{#if previewOpen}}active{{/if}}"
+          data-action="togglePreview"
+          data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Preview.PanelTitle"}}">
+    <i class="fa-solid fa-circle-info"></i>
+  </button>
+</div>

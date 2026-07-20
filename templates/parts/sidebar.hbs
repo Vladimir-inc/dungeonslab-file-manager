@@ -1,0 +1,73 @@
+<aside class="fm-sidebar">
+  <section class="fm-sidebar-section">
+    <h4>{{localize "FILE_MANAGER_DUNGEONS_LAB.Sidebar.Favorites"}}</h4>
+    {{#each favorites}}
+      <div class="fm-tree-row" data-action="navigate" data-path="{{this.path}}"
+           data-source="{{this.source}}" data-fav-id="{{this.id}}">
+        <i class="fa-solid fa-star fm-fav-star"></i>
+        <span class="fm-tree-name">{{this.name}}</span>
+      </div>
+    {{else}}
+      <p class="fm-muted fm-sidebar-hint">{{localize "FILE_MANAGER_DUNGEONS_LAB.Sidebar.NoFavorites"}}</p>
+    {{/each}}
+  </section>
+
+  <section class="fm-sidebar-section">
+    <h4>{{localize "FILE_MANAGER_DUNGEONS_LAB.Sidebar.Recent"}}</h4>
+    {{#each recents}}
+      <div class="fm-tree-row" data-action="navigate" data-path="{{this.path}}"
+           data-source="{{this.source}}">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span class="fm-tree-name">{{this.name}}</span>
+      </div>
+    {{else}}
+      <p class="fm-muted fm-sidebar-hint">{{localize "FILE_MANAGER_DUNGEONS_LAB.Sidebar.NoRecent"}}</p>
+    {{/each}}
+  </section>
+
+  <section class="fm-sidebar-section">
+    <h4>{{localize "FILE_MANAGER_DUNGEONS_LAB.Sidebar.Folders"}}</h4>
+    {{#each treeNodes}}
+      <div class="fm-tree-row {{#if this.active}}active{{/if}}" data-tree-path="{{this.path}}"
+           style="padding-left: calc(6px + {{this.depth}} * 14px)">
+        <span class="fm-tree-chevron" data-action="expandTreeNode">
+          <i class="fa-solid {{#if this.expanded}}fa-caret-down{{else}}fa-caret-right{{/if}}"></i>
+        </span>
+        <span class="fm-tree-name" data-action="navigate" data-path="{{this.path}}">
+          <i class="fa-solid fa-folder"></i> {{this.name}}
+        </span>
+      </div>
+    {{/each}}
+  </section>
+
+  <section class="fm-sidebar-section">
+    <h4>{{localize "FILE_MANAGER_DUNGEONS_LAB.Sidebar.Colors"}}</h4>
+    {{#each colorFilters}}
+      <div class="fm-tag-row {{#if this.active}}active{{/if}}" data-action="toggleColorFilter"
+           data-color-id="{{this.id}}">
+        <span class="fm-swatch" style="background: {{this.hex}}"></span>
+        <span class="fm-tree-name">{{this.label}}</span>
+        <span class="fm-tag-count">{{this.count}}</span>
+      </div>
+    {{/each}}
+  </section>
+
+  <section class="fm-sidebar-section">
+    <h4>
+      {{localize "FILE_MANAGER_DUNGEONS_LAB.Sidebar.Tags"}}
+      <span class="fm-spacer"></span>
+      <span class="fm-icon-btn" data-action="openTagManager"
+            data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.TagModal.Title"}}">
+        <i class="fa-solid fa-gear"></i>
+      </span>
+    </h4>
+    {{#each tags}}
+      <div class="fm-tag-row {{#if this.active}}active{{/if}}" data-action="toggleTagFilter"
+           data-tag-id="{{this.id}}">
+        <i class="fa-solid fa-tag fm-tag-icon"></i>
+        <span class="fm-tree-name">{{this.name}}</span>
+        <span class="fm-tag-count">{{this.count}}</span>
+      </div>
+    {{/each}}
+  </section>
+</aside>
