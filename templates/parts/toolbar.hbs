@@ -1,0 +1,75 @@
+<div class="fm-toolbar">
+  <button type="button" class="fm-icon-btn" data-action="goUp"
+          data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.Up"}}">
+    <i class="fa-solid fa-arrow-left"></i>
+  </button>
+  {{#if pathEditing}}
+    <input type="text" name="pathInput" class="fm-path-input" value="{{pathValue}}"
+           autocomplete="off" spellcheck="false"
+           placeholder="{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.PathPlaceholder"}}">
+  {{else}}
+    <nav class="fm-breadcrumbs" data-action="editPath"
+         data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.EditPath"}}">
+      {{#each crumbs}}
+        {{#unless @first}}<span class="fm-crumb-sep">›</span>{{/unless}}
+        {{#if this.nav}}
+          <span class="fm-crumb" data-action="navigate" data-path="{{this.path}}">{{this.name}}</span>
+        {{else}}
+          <span class="fm-crumb is-static">{{this.name}}</span>
+        {{/if}}
+      {{/each}}
+    </nav>
+  {{/if}}
+  <button type="button" class="fm-goto-btn" data-action="openPalette"
+          data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Palette.Tooltip"}}">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Palette.GoTo"}}</span>
+    <kbd>Ctrl P</kbd>
+  </button>
+  <div class="fm-view-menu">
+    <button type="button" class="fm-view-menu-btn {{#if viewMenuOpen}}open{{/if}}"
+            data-action="toggleViewMenu">
+      <i class="fa-solid {{currentView.icon}}"></i>
+      <span>{{currentView.label}}</span>
+      <i class="fa-solid fa-chevron-down fm-view-caret"></i>
+    </button>
+    {{#if viewMenuOpen}}
+      <div class="fm-view-backdrop" data-action="closeViewMenu"></div>
+      <div class="fm-view-popover">
+        {{#each views}}
+          <div class="fm-view-item {{#if this.active}}selected{{/if}}" data-action="setView"
+               data-view="{{this.id}}">
+            <span class="fm-view-check">
+              {{#if this.active}}<i class="fa-solid fa-circle"></i>{{/if}}
+            </span>
+            <i class="fa-solid {{this.icon}} fm-view-item-icon"></i>
+            <span>{{this.label}}</span>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
+  <div class="fm-segmented fm-source-switch">
+    {{#each sourcesList}}
+      <button type="button" class="{{#if this.active}}active{{/if}}" data-action="switchSource"
+              data-source="{{this.id}}">{{this.label}}</button>
+    {{/each}}
+  </div>
+  {{#if showCreateFolder}}
+    <button type="button" class="fm-btn" data-action="newFolder">
+      <i class="fa-solid fa-folder-plus"></i>
+      <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.NewFolder"}}</span>
+    </button>
+  {{/if}}
+  {{#if showUpload}}
+    <button type="button" class="fm-btn" data-action="upload">
+      <i class="fa-solid fa-upload"></i>
+      <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.Upload"}}</span>
+    </button>
+  {{/if}}
+  <button type="button" class="fm-icon-btn fm-preview-toggle {{#if previewOpen}}active{{/if}}"
+          data-action="togglePreview"
+          data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Preview.PanelTitle"}}">
+    <i class="fa-solid fa-circle-info"></i>
+  </button>
+</div>

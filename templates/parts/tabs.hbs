@@ -1,0 +1,24 @@
+<nav class="fm-tabs">
+  {{#each tabs}}
+    <div class="fm-tab {{#if this.active}}active{{/if}}" data-action="switchTab" data-tabid="{{this.index}}">
+      <span class="fm-tab-dot" style="background: {{this.dot}}"></span>
+      <span class="fm-tab-label">{{this.label}}</span>
+      {{#if ../showTabClose}}
+        <span class="fm-tab-close" data-action="closeTab"
+              data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Tabs.CloseTab"}}">
+          <i class="fa-solid fa-xmark"></i>
+        </span>
+      {{/if}}
+    </div>
+  {{/each}}
+  <button type="button" class="fm-tab-add" data-action="addTab"
+          data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Tabs.NewTab"}}">
+    <i class="fa-solid fa-plus"></i>
+  </button>
+  <span class="fm-spacer"></span>
+  <button type="button" class="fm-tab-split {{#if splitOpen}}active{{/if}}" data-action="toggleSplit"
+          data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Toolbar.SplitView"}}">
+    <i class="fa-solid fa-table-columns"></i>
+    <span>{{localize "FILE_MANAGER_DUNGEONS_LAB.Split.Toggle"}}</span>
+  </button>
+</nav>

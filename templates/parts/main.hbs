@@ -1,0 +1,109 @@
+<section class="fm-main {{#if splitOpen}}is-split split-{{splitDir}}{{/if}}">
+  <div class="fm-pane fm-pane-primary {{#if paneOneActive}}is-active{{/if}}" data-pane="1">
+    {{#if splitOpen}}
+      <div class="fm-pane-bar">
+        <span class="fm-pane-dot" style="background: {{paneOneDot}}"></span>
+        <nav class="fm-breadcrumbs">
+          {{#each crumbs}}
+            {{#unless @first}}<span class="fm-crumb-sep">›</span>{{/unless}}
+            {{#if this.nav}}
+              <span class="fm-crumb" data-action="navigate" data-path="{{this.path}}">{{this.name}}</span>
+            {{else}}
+              <span class="fm-crumb is-static">{{this.name}}</span>
+            {{/if}}
+          {{/each}}
+        </nav>
+        <span class="fm-pane-count">{{paneOneCount}}</span>
+        <span class="fm-pane-badge">{{localize "FILE_MANAGER_DUNGEONS_LAB.Split.Active"}}</span>
+        <button type="button" class="fm-icon-btn fm-pane-swap" data-action="swapPanes"
+                data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Split.Swap"}}">
+          <i class="fa-solid fa-right-left"></i>
+        </button>
+      </div>
+    {{/if}}
+    {{#if filtering}}
+      <div class="fm-filter-chips">
+        <span class="fm-filter-label">{{localize "FILE_MANAGER_DUNGEONS_LAB.Main.Filters"}}</span>
+        {{#each colorFilters}}
+          {{#if this.active}}
+            <span class="fm-chip is-removable" data-action="toggleColorFilter" data-color-id="{{this.id}}">
+              <span class="fm-swatch" style="background: {{this.hex}}"></span>
+              {{this.label}} <i class="fa-solid fa-xmark"></i>
+            </span>
+          {{/if}}
+        {{/each}}
+        {{#each tags}}
+          {{#if this.active}}
+            <span class="fm-chip is-removable" data-action="toggleTagFilter" data-tag-id="{{this.id}}">
+              <i class="fa-solid fa-tag fm-tag-icon"></i>
+              {{this.name}} <i class="fa-solid fa-xmark"></i>
+            </span>
+          {{/if}}
+        {{/each}}
+        <span class="fm-link" data-action="clearFilters">
+          {{localize "FILE_MANAGER_DUNGEONS_LAB.Main.ClearFilters"}}
+        </span>
+      </div>
+    {{/if}}
+
+    {{#if emptyFolder}}
+      <div class="fm-empty">
+        <i class="fa-solid fa-folder-open"></i>
+        <p>{{localize "FILE_MANAGER_DUNGEONS_LAB.Main.EmptyFolder"}}</p>
+      </div>
+    {{/if}}
+    {{#if noResults}}
+      <div class="fm-empty">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <p>{{localize "FILE_MANAGER_DUNGEONS_LAB.Main.NoResults"}}</p>
+        <button type="button" class="fm-btn accent" data-action="clearFilters">
+          {{localize "FILE_MANAGER_DUNGEONS_LAB.Main.ClearFilters"}}
+        </button>
+      </div>
+    {{/if}}
+
+    {{#if items.length}}
+      <div class="fm-items view-{{view}}">
+        {{#each items}}
+          {{> "modules/file-manager-dungeons-lab/templates/parts/item.hbs"}}
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
+
+  {{#if splitOpen}}
+    <div class="fm-pane fm-pane-secondary {{#unless paneOneActive}}is-active{{/unless}}" data-pane="2">
+      <div class="fm-pane-bar">
+        <span class="fm-pane-dot" style="background: {{splitDot}}"></span>
+        <nav class="fm-breadcrumbs fm-split-crumbs">
+          {{#each splitCrumbs}}
+            {{#unless @first}}<span class="fm-crumb-sep">›</span>{{/unless}}
+            <span class="fm-crumb" data-action="splitNavigate" data-path="{{this.path}}">{{this.name}}</span>
+          {{/each}}
+        </nav>
+        <span class="fm-pane-count">{{splitCount}}</span>
+        <span class="fm-pane-badge">{{localize "FILE_MANAGER_DUNGEONS_LAB.Split.Active"}}</span>
+        <button type="button" class="fm-icon-btn fm-pane-dir" data-action="toggleSplitDir"
+                data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Split.Direction"}}">
+          <i class="fa-solid {{#if splitVertical}}fa-grip-lines{{else}}fa-table-columns{{/if}}"></i>
+        </button>
+        <button type="button" class="fm-icon-btn fm-pane-close" data-action="closeSplit"
+                data-tooltip="{{localize "FILE_MANAGER_DUNGEONS_LAB.Split.Close"}}">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      {{#if splitItems.length}}
+        <div class="fm-items view-{{view}}">
+          {{#each splitItems}}
+            {{> "modules/file-manager-dungeons-lab/templates/parts/item.hbs"}}
+          {{/each}}
+        </div>
+      {{else}}
+        <div class="fm-empty">
+          <i class="fa-solid fa-folder-open"></i>
+          <p>{{localize "FILE_MANAGER_DUNGEONS_LAB.Main.EmptyFolder"}}</p>
+        </div>
+      {{/if}}
+    </div>
+  {{/if}}
+</section>
